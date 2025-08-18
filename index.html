@@ -1,0 +1,128 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>3D Event & Brand Visuals</title>
+  <meta name="description" content="High‑impact 3D visuals for events, brands and experiences. Bring your ideas to life with immersive animations and story‑driven motion." />
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <!-- Stylesheet -->
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <!-- Navigation & hero wrapper -->
+  <header class="hero-section" id="hero">
+    <nav class="nav">
+      <a href="#" class="logo">Your&nbsp;Logo</a>
+      <ul class="nav-links" id="primary-navigation">
+        <li><a href="#intro">Work</a></li>
+        <li><a href="#why">Why&nbsp;3D</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+      <button class="hamburger" aria-label="Toggle navigation" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </nav>
+    <div class="hero-content">
+      <!-- Video showreel trigger -->
+      <button class="showreel-trigger" aria-label="Play showreel">
+        <span class="triangle"></span>
+      </button>
+    </div>
+    <!-- Hero slogan -->
+    <h1 class="slogan">NEVER&nbsp;NOT&nbsp;LEARNING</h1>
+  </header>
+
+  <main id="main">
+    <!-- Introduction / work overview -->
+    <section id="intro" class="intro-section reveal">
+      <div class="container intro-wrapper">
+        <div class="intro-text">
+          <h2>I create high‑impact 3D visuals for events, brands and experiences — to grab attention, build excitement and bring more people in.</h2>
+          <p>Specializing in social events and brand activations, I design visuals that turn ideas into immersive, unforgettable experiences — whether for a festival stage or a product launch.</p>
+        </div>
+        <div class="video-grid">
+          <!-- Smaller video thumbnails -->
+          <div class="video-card small" role="button" aria-label="Play example video" tabindex="0">
+            <span class="play-icon"></span>
+          </div>
+          <div class="video-card small" role="button" aria-label="Play example video" tabindex="0">
+            <span class="play-icon"></span>
+          </div>
+          <!-- Large video thumbnail -->
+          <div class="video-card large" role="button" aria-label="Play example video" tabindex="0">
+            <span class="play-icon"></span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Why 3D / Problem–Solution -->
+    <section id="why" class="why-section reveal">
+      <div class="container">
+        <h2 class="section-heading">Why your event or brand needs high‑impact 3D visuals</h2>
+        <div class="problem-cards">
+          <div class="problem-card">
+            <h3>Hard to show the full experience</h3>
+            <p class="problem">Photos and basic videos can’t capture the full energy or detail of your vision.</p>
+            <p class="solution"><strong>Solution:</strong> My 3D visuals show every element — from stage layouts to lighting effects — in realistic detail before the event even happens, so guests, sponsors and teams know exactly what to expect.</p>
+          </div>
+          <div class="problem-card">
+            <h3>Flat promotions don’t excite people</h3>
+            <p class="problem">Audiences scroll past generic event promos and forget them within seconds.</p>
+            <p class="solution"><strong>Solution:</strong> I create dynamic, story‑driven 3D animations that control every angle, lighting cue and movement — building hype and keeping people hooked until showtime.</p>
+          </div>
+        </div>
+        <!-- Comparison visuals -->
+        <div class="comparison">
+          <div class="compare-column">
+            <div class="compare-visual">
+              <span class="label">2D Poster Design</span>
+            </div>
+            <p class="compare-text">Audiences scroll past generic event promos and forget them within seconds.</p>
+          </div>
+          <div class="compare-column">
+            <div class="compare-visual">
+              <span class="label">3D Video</span>
+            </div>
+            <p class="compare-text">I create dynamic, story‑driven 3D animations that control every angle, lighting cue and movement — building hype and keeping people hooked until showtime.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="about-section reveal">
+      <div class="container about-wrapper">
+        <h2>Hi, I’m Tri.</h2>
+        <p>I’m a 3D designer based in Ho Chi Minh City. I help events, brands and experiences come to life through visuals that are impossible to ignore. My work blends design, storytelling and local culture to create moments people remember — whether it’s a high‑energy festival teaser or a sleek product reveal.</p>
+      </div>
+    </section>
+
+    <!-- Call to Action / Contact -->
+    <section id="contact" class="cta-section reveal">
+      <div class="container cta-wrapper">
+        <h2>Make your event, brand or experience unforgettable.</h2>
+        <h1 class="cta-3d">3D</h1>
+        <p class="cta-sub">Let’s make your next event unforgettable. Free 15‑min chat to explore ideas for your event or campaign.</p>
+        <a href="#" class="btn-primary">Message Me</a>
+      </div>
+    </section>
+  </main>
+
+  <!-- Video modal (hidden by default) -->
+  <div id="video-modal" class="video-modal" aria-hidden="true" role="dialog">
+    <div class="modal-overlay"></div>
+    <div class="modal-content" role="document">
+      <button class="modal-close" aria-label="Close video">&times;</button>
+      <!-- Placeholder video – replace src with your own showreel or project video -->
+      <video id="modal-video" src="media/showreel.mp4" controls></video>
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="script.js"></script>
+</body>
+</html>
