@@ -46,16 +46,21 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
-  // --- Seamless marquee duplicator (A -> A + A) ---
-const marqueeTrack = document.getElementById('marqueeTrack');
-if (marqueeTrack) {
-  const items = Array.from(marqueeTrack.children);
-  const clone = items.map(node => node.cloneNode(true));
-  clone.forEach(node => marqueeTrack.appendChild(node));
-}
+  // --- Seamless marquee duplicator (Desktop only) ---
+  const marqueeTrack = document.getElementById('marqueeTrack');
+  const isMobile = window.matchMedia('(max-width: 768px)').matches;
+
+  if (marqueeTrack && !isMobile) {
+    const items = Array.from(marqueeTrack.children);
+    const clones = items.map(node => {
+      const clone = node.cloneNode(true);
+      clone.setAttribute('data-clone', 'true');
+      return clone;
+    });
+    clones.forEach(node => marqueeTrack.appendChild(node));
+  }
 
   // Attach open modal only to video cards that are intended as buttons
-  // Avoid adding modal handlers to autoplaying marquee videos (no role attribute)
   document.querySelectorAll('.video-card[role="button"]').forEach((card) => {
     card.addEventListener('click', openModal);
     card.addEventListener('keypress', (e) => {
@@ -124,16 +129,14 @@ if (marqueeTrack) {
     const nav = document.querySelector('.nav');
     if (!nav) return;
 
-    // Note: We ignore prefers-reduced-motion for header animation in this build.
     const prefersReduced = false;
-
     let lastY = window.scrollY || 0;
     let hidden = false;
     let ticking = false;
-    const THRESHOLD = 12;          // pixels to move before toggling
-    const TOP_LOCK = 10;           // keep visible near top
-    const ANIM_OUT_MS = 320;       // should match CSS transform duration
-    const REVEAL_MS = 450;         // overlay + pulse time
+    const THRESHOLD = 12;
+    const TOP_LOCK = 10;
+    const ANIM_OUT_MS = 320;
+    const REVEAL_MS = 450;
 
     const clearTempClasses = () => {
       nav.classList.remove('nav--anim', 'nav--reveal');
@@ -141,8 +144,6 @@ if (marqueeTrack) {
 
     const onScroll = () => {
       const y = window.scrollY || 0;
-
-      // keep visible and transparent at the very top
       if (y < TOP_LOCK) {
         if (hidden) {
           nav.classList.remove('nav--hidden');
@@ -153,24 +154,17 @@ if (marqueeTrack) {
         ticking = false;
         return;
       }
-
       const delta = y - lastY;
-
-      // only act when movement exceeds threshold
       if (Math.abs(delta) > THRESHOLD) {
         if (delta > 0 && !hidden) {
-          // scrolling down -> hide
-          nav.classList.add('nav--anim');     // turn on overlay while exiting
+          nav.classList.add('nav--anim');
           nav.classList.add('nav--hidden');
           hidden = true;
-          // remove anim flag after exit
           setTimeout(() => nav.classList.remove('nav--anim'), ANIM_OUT_MS + 40);
         } else if (delta < 0 && hidden) {
-          // scrolling up -> show with creative reveal
           nav.classList.remove('nav--hidden');
-          nav.classList.add('nav--reveal');   // overlay + color pulse
+          nav.classList.add('nav--reveal');
           hidden = false;
-          // remove reveal flag after reveal finishes
           setTimeout(() => nav.classList.remove('nav--reveal'), REVEAL_MS + 40);
         }
         lastY = y;
@@ -178,12 +172,44 @@ if (marqueeTrack) {
       ticking = false;
     };
 
-    // rAF throttle for buttery performance
     window.addEventListener('scroll', () => {
       if (!ticking) {
         ticking = true;
         requestAnimationFrame(onScroll);
       }
     }, { passive: true });
+  })();
+
+  // --- Performance: lazy-load & play-only-visible marquee videos ---
+  (function () {
+    const track = document.getElementById('marqueeTrack');
+    if (!track) return;
+
+    const videos = track.querySelectorAll('video.video-card');
+
+    const loadAndPlay = (el) => {
+      if (!el.src && el.dataset.src) el.src = el.dataset.src;
+      const p = el.play();
+      if (p && typeof p.catch === 'function') p.catch(() => {});
+    };
+    const pauseVideo = (el) => { try { el.pause(); } catch (_) {} };
+
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        const el = entry.target;
+        if (entry.isIntersecting) {
+          loadAndPlay(el);
+        } else {
+          pauseVideo(el);
+        }
+      });
+    }, { root: null, rootMargin: '200px 0px', threshold: 0.01 });
+
+    videos.forEach(v => io.observe(v));
+
+    // Save battery: pause all when page hidden
+    document.addEventListener('visibilitychange', () => {
+      videos.forEach(v => document.hidden ? pauseVideo(v) : loadAndPlay(v));
+    });
   })();
 });

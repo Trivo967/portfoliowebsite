@@ -4,11 +4,11 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>3D Event & Brand Visuals</title>
-  <meta name="description" content="High‑impact 3D visuals for events, brands and experiences. Bring your ideas to life with immersive animations and story‑driven motion." />
+  <meta name="description" content="High-impact 3D visuals for events, brands and experiences. Bring your ideas to life with immersive animations and story-driven motion." />
   <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;600;700;800&family=Libre+Bodoni:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;600;700;800&family=Libre+Bodoni:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&display=swap" rel="stylesheet">
   <!-- Stylesheet -->
   <link rel="stylesheet" href="styles.css" />
 </head>
@@ -35,7 +35,7 @@
       muted
       loop
       playsinline
-      preload="auto"
+      preload="metadata"  <!-- was auto; metadata = faster first paint, uses poster -->
       poster="media/reel-poster.jpg"
     >
       <!-- Optional: add a WebM source for better compression -->
@@ -60,22 +60,19 @@
           <h1>Making Awesome 3D Visuals For Brands &amp; Events</h1>
           <h2>Fueled by Creativity, Obsessed with Curiosity</h2>
         </div>
-        <!-- Continuous video marquee: four unique videos duplicated for seamless looping -->
-        <!-- index.html -->
-<div class="video-marquee">
-  <div class="video-track" id="marqueeTrack">
-    <!-- Single canonical sequence (A). Add/remove freely. -->
-    <video class="video-card" src="media/0001.mp4" autoplay loop muted playsinline></video>
-    <video class="video-card" src="media/05.mp4" autoplay loop muted playsinline></video>
-    <video class="video-card" src="media/meditation.mp4" autoplay loop muted playsinline></video>
-    <video class="video-card" src="media/Flag.mp4" autoplay loop muted playsinline></video>
-    <video class="video-card" src="media/business.mp4" autoplay loop muted playsinline></video>
-    <video class="video-card" src="media/yoga.mp4" autoplay loop muted playsinline></video>
-    <video class="video-card" src="media/sunglass.mp4" autoplay loop muted playsinline></video>
-  </div>
-</div>
 
-          
+        <!-- Continuous video marquee (lazy + mobile-friendly) -->
+        <div class="video-marquee">
+          <div class="video-track" id="marqueeTrack">
+            <!-- Replace src= with data-src so we can lazy load -->
+            <video class="video-card" data-src="media/0001.mp4" muted playsinline preload="metadata"></video>
+            <video class="video-card" data-src="media/05.mp4" muted playsinline preload="metadata"></video>
+            <video class="video-card" data-src="media/meditation.mp4" muted playsinline preload="metadata"></video>
+            <video class="video-card" data-src="media/Flag.mp4" muted playsinline preload="metadata"></video>
+            <video class="video-card" data-src="media/business.mp4" muted playsinline preload="metadata"></video>
+            <video class="video-card" data-src="media/yoga.mp4" muted playsinline preload="metadata"></video>
+            <video class="video-card" data-src="media/sunglass.mp4" muted playsinline preload="metadata"></video>
+          </div>
         </div>
       </div>
     </section>
@@ -96,17 +93,18 @@
             <h2> I create 3D visuals that help you grab more attention.</h2>
           </div>
         </div>
+
         <!-- Comparison visuals -->
         <div class="comparison">
           <div class="compare-column">
             <div class="compare-visual">
-              <video src="media/2D_persuation.mp4" autoplay loop muted playsinline></video>
+              <video src="media/2D_persuation.mp4" autoplay loop muted playsinline preload="metadata"></video>
             </div>
             <p class="compare-text">Audiences scroll past generic event promos and forget them within seconds.</p>
           </div>
           <div class="compare-column">
             <div class="compare-visual">
-              <video src="media/3D_persuation.mp4" autoplay loop muted playsinline></video>
+              <video src="media/3D_persuation.mp4" autoplay loop muted playsinline preload="metadata"></video>
             </div>
             <p class="compare-text">I create dynamic, story-driven 3D animations that control every angle, lighting cue and movement — building hype and keeping people hooked until showtime.</p>
           </div>
@@ -115,26 +113,24 @@
     </section>
 
     <!-- About Section -->
-   <section id="about" class="about-section reveal">
-  <div class="container about-wrapper">
-    <div class="about-text">
-      <h1>Hello world, my name is Tri.</h1>
-      <h2>I’m a 3D designer based in Ho Chi Minh City. I help events, brands and experiences come to life through visuals that are impossible to ignore</h2>
-    </div>
+    <section id="about" class="about-section reveal">
+      <div class="container about-wrapper">
+        <div class="about-text">
+          <h1>Hello world, my name is Tri.</h1>
+          <h2>I’m a 3D designer based in Ho Chi Minh City. I help events, brands and experiences come to life through visuals that are impossible to ignore</h2>
+        </div>
 
-    <div class="about-image">
-      <img src="media/tri.png" alt="Tri's portrait">
-    </div>
-  </div>
-</section>
+        <div class="about-image">
+          <img src="media/tri.png" alt="Tri's portrait" loading="lazy">
+        </div>
+      </div>
+    </section>
 
     <!-- Call to Action / Contact -->
     <section id="contact" class="cta-section reveal">
       <div class="container cta-wrapper">
           <h2>Make your event, brand or experience unforgettable.</h2>
           <h1 class="cta-3d">Let's tell stories together</h1>
-          
-          
       </div>
     </section>
   </main>
@@ -144,20 +140,18 @@
     <div class="modal-overlay"></div>
     <div class="modal-content" role="document">
       <button class="modal-close" aria-label="Close video">&times;</button>
-      <video id="modal-video" src="media/video.mp4" controls></video>
+      <video id="modal-video" src="media/video.mp4" controls preload="metadata"></video>
     </div>
   </div>
 
   <!-- Scripts -->
   <script src="script.js"></script>
-
-  
 </body>
 
 <footer class="site-footer">
   <div class="footer-inner container">
     <!-- Left: logo -->
-    <a href="/" class="footer-logo"><img src="media/logo_png_80_white.png" alt="Footer Logo"></a>
+    <a href="/" class="footer-logo"><img src="media/logo_png_80_white.png" alt="Footer Logo" loading="lazy"></a>
 
     <!-- Center: social icons (monochrome) -->
     <nav class="footer-social" aria-label="Social links">
@@ -187,8 +181,6 @@
           <path d="M3 7l9 6 9-6"></path>
         </svg>
       </a>
-
-      
     </nav>
 
     <!-- Right: motto -->
