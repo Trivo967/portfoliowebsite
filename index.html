@@ -6,16 +6,17 @@
   <title>3D Event & Brand Visuals</title>
   <meta name="description" content="High‑impact 3D visuals for events, brands and experiences. Bring your ideas to life with immersive animations and story‑driven motion." />
   <!-- Google Fonts -->
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;600;700;800&family=Libre+Bodoni:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&display=swap" rel="stylesheet">
   <!-- Stylesheet -->
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
   <!-- Navigation & hero wrapper -->
-  <header class="hero-section" id="hero">
+  <header class="hero-section hero--video" id="hero">
     <nav class="nav">
-      <a href="#" class="logo">Your&nbsp;Logo</a>
+      <a href="#" class="logo"><img src="media/logo_png_150_white.png" alt="Your Logo"></a>
       <ul class="nav-links" id="primary-navigation">
         <li><a href="#intro">Work</a></li>
         <li><a href="#why">Why&nbsp;3D</a></li>
@@ -25,14 +26,30 @@
         <span></span><span></span><span></span>
       </button>
     </nav>
-    <div class="hero-content">
-      <!-- Video showreel trigger -->
-      <button class="showreel-trigger" aria-label="Play showreel">
-        <span class="triangle"></span>
-      </button>
+
+    <!-- Full-screen background video -->
+    <video
+      id="bgVideo"
+      class="bg-video"
+      autoplay
+      muted
+      loop
+      playsinline
+      preload="auto"
+      poster="media/reel-poster.jpg"
+    >
+      <!-- Optional: add a WebM source for better compression -->
+      <!-- <source src="media/video.webm" type="video/webm" /> -->
+      <source src="media/video.mp4" type="video/mp4" />
+    </video>
+
+    <div class="hero-overlay"></div>
+
+    <!-- Slogan & scroll cue -->
+    <div class="hero-inner">
+      <h1 class="slogan">NEVER&nbsp;NOT&nbsp;LEARNING</h1>
+      <a href="#intro" class="scroll-cue" aria-label="Scroll to content">↓</a>
     </div>
-    <!-- Hero slogan -->
-    <h1 class="slogan">NEVER&nbsp;NOT&nbsp;LEARNING</h1>
   </header>
 
   <main id="main">
@@ -40,21 +57,25 @@
     <section id="intro" class="intro-section reveal">
       <div class="container intro-wrapper">
         <div class="intro-text">
-          <h2>I create high‑impact 3D visuals for events, brands and experiences — to grab attention, build excitement and bring more people in.</h2>
-          <p>Specializing in social events and brand activations, I design visuals that turn ideas into immersive, unforgettable experiences — whether for a festival stage or a product launch.</p>
+          <h1>Making Awesome 3D Visuals For Brands &amp; Events</h1>
+          <h2>Fueled by Creativity, Obsessed with Curiosity</h2>
         </div>
-        <div class="video-grid">
-          <!-- Smaller video thumbnails -->
-          <div class="video-card small" role="button" aria-label="Play example video" tabindex="0">
-            <span class="play-icon"></span>
-          </div>
-          <div class="video-card small" role="button" aria-label="Play example video" tabindex="0">
-            <span class="play-icon"></span>
-          </div>
-          <!-- Large video thumbnail -->
-          <div class="video-card large" role="button" aria-label="Play example video" tabindex="0">
-            <span class="play-icon"></span>
-          </div>
+        <!-- Continuous video marquee: four unique videos duplicated for seamless looping -->
+        <!-- index.html -->
+<div class="video-marquee">
+  <div class="video-track" id="marqueeTrack">
+    <!-- Single canonical sequence (A). Add/remove freely. -->
+    <video class="video-card" src="media/0001.mp4" autoplay loop muted playsinline></video>
+    <video class="video-card" src="media/05.mp4" autoplay loop muted playsinline></video>
+    <video class="video-card" src="media/meditation.mp4" autoplay loop muted playsinline></video>
+    <video class="video-card" src="media/Flag.mp4" autoplay loop muted playsinline></video>
+    <video class="video-card" src="media/business.mp4" autoplay loop muted playsinline></video>
+    <video class="video-card" src="media/yoga.mp4" autoplay loop muted playsinline></video>
+    <video class="video-card" src="media/sunglass.mp4" autoplay loop muted playsinline></video>
+  </div>
+</div>
+
+          
         </div>
       </div>
     </section>
@@ -62,52 +83,58 @@
     <!-- Why 3D / Problem–Solution -->
     <section id="why" class="why-section reveal">
       <div class="container">
-        <h2 class="section-heading">Why your event or brand needs high‑impact 3D visuals</h2>
+        <h1 class="section-heading">Why your event or brand needs high-impact 3D visuals</h1>
         <div class="problem-cards">
           <div class="problem-card">
-            <h3>Hard to show the full experience</h3>
-            <p class="problem">Photos and basic videos can’t capture the full energy or detail of your vision.</p>
-            <p class="solution"><strong>Solution:</strong> My 3D visuals show every element — from stage layouts to lighting effects — in realistic detail before the event even happens, so guests, sponsors and teams know exactly what to expect.</p>
+            <h1>Difficult to show experience</h1>
+            <h2>Photos and Baisc Videos are saturated. </h2>
+            <h2> My 3D visuals help you stand out. </h2>
           </div>
           <div class="problem-card">
-            <h3>Flat promotions don’t excite people</h3>
-            <p class="problem">Audiences scroll past generic event promos and forget them within seconds.</p>
-            <p class="solution"><strong>Solution:</strong> I create dynamic, story‑driven 3D animations that control every angle, lighting cue and movement — building hype and keeping people hooked until showtime.</p>
+            <h1>Flat promotions don’t excite people</h1>
+            <h2>Audiences scroll past generic event promos and ads and forget them within seconds.</h2>
+            <h2> I create 3D visuals that help you grab more attention.</h2>
           </div>
         </div>
         <!-- Comparison visuals -->
         <div class="comparison">
           <div class="compare-column">
             <div class="compare-visual">
-              <span class="label">2D Poster Design</span>
+              <video src="media/2D_persuation.mp4" autoplay loop muted playsinline></video>
             </div>
             <p class="compare-text">Audiences scroll past generic event promos and forget them within seconds.</p>
           </div>
           <div class="compare-column">
             <div class="compare-visual">
-              <span class="label">3D Video</span>
+              <video src="media/3D_persuation.mp4" autoplay loop muted playsinline></video>
             </div>
-            <p class="compare-text">I create dynamic, story‑driven 3D animations that control every angle, lighting cue and movement — building hype and keeping people hooked until showtime.</p>
+            <p class="compare-text">I create dynamic, story-driven 3D animations that control every angle, lighting cue and movement — building hype and keeping people hooked until showtime.</p>
           </div>
         </div>
       </div>
     </section>
 
     <!-- About Section -->
-    <section id="about" class="about-section reveal">
-      <div class="container about-wrapper">
-        <h2>Hi, I’m Tri.</h2>
-        <p>I’m a 3D designer based in Ho Chi Minh City. I help events, brands and experiences come to life through visuals that are impossible to ignore. My work blends design, storytelling and local culture to create moments people remember — whether it’s a high‑energy festival teaser or a sleek product reveal.</p>
-      </div>
-    </section>
+   <section id="about" class="about-section reveal">
+  <div class="container about-wrapper">
+    <div class="about-text">
+      <h1>Hello world, my name is Tri.</h1>
+      <h2>I’m a 3D designer based in Ho Chi Minh City. I help events, brands and experiences come to life through visuals that are impossible to ignore</h2>
+    </div>
+
+    <div class="about-image">
+      <img src="media/tri.png" alt="Tri's portrait">
+    </div>
+  </div>
+</section>
 
     <!-- Call to Action / Contact -->
     <section id="contact" class="cta-section reveal">
       <div class="container cta-wrapper">
-        <h2>Make your event, brand or experience unforgettable.</h2>
-        <h1 class="cta-3d">3D</h1>
-        <p class="cta-sub">Let’s make your next event unforgettable. Free 15‑min chat to explore ideas for your event or campaign.</p>
-        <a href="#" class="btn-primary">Message Me</a>
+          <h2>Make your event, brand or experience unforgettable.</h2>
+          <h1 class="cta-3d">Let's tell stories together</h1>
+          
+          
       </div>
     </section>
   </main>
@@ -117,12 +144,55 @@
     <div class="modal-overlay"></div>
     <div class="modal-content" role="document">
       <button class="modal-close" aria-label="Close video">&times;</button>
-      <!-- Placeholder video – replace src with your own showreel or project video -->
-      <video id="modal-video" src="media/showreel.mp4" controls></video>
+      <video id="modal-video" src="media/video.mp4" controls></video>
     </div>
   </div>
 
   <!-- Scripts -->
   <script src="script.js"></script>
+
+  
 </body>
+
+<footer class="site-footer">
+  <div class="footer-inner container">
+    <!-- Left: logo -->
+    <a href="/" class="footer-logo"><img src="media/logo_png_80_white.png" alt="Footer Logo"></a>
+
+    <!-- Center: social icons (monochrome) -->
+    <nav class="footer-social" aria-label="Social links">
+      <!-- Instagram -->
+      <a class="icon-link" href="https://www.instagram.com/trivovibes/" target="_blank" rel="noopener" aria-label="Instagram">
+        <svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <rect x="3" y="3" width="18" height="18" rx="5"></rect>
+          <circle cx="12" cy="12" r="4"></circle>
+          <circle cx="17.5" cy="6.5" r="1.2" fill="currentColor" stroke="none"></circle>
+        </svg>
+      </a>
+
+      <!-- LinkedIn -->
+      <a class="icon-link" href="https://www.linkedin.com/in/trithanhvo967/" target="_blank" rel="noopener" aria-label="LinkedIn">
+        <svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <rect x="3" y="3" width="18" height="18" rx="2"></rect>
+          <line x1="7.5" y1="10" x2="7.5" y2="16"></line>
+          <circle cx="7.5" cy="7.5" r="1"></circle>
+          <path d="M12 16v-3.2c0-1.5 1-2.3 2.3-2.3s2.2.8 2.2 2.3V16"></path>
+        </svg>
+      </a>
+
+      <!-- Gmail (envelope) -->
+      <a class="icon-link" href="mailto:vothanhtri2204@gmail.com" aria-label="Gmail">
+        <svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <rect x="3" y="5" width="18" height="14" rx="2"></rect>
+          <path d="M3 7l9 6 9-6"></path>
+        </svg>
+      </a>
+
+      
+    </nav>
+
+    <!-- Right: motto -->
+    <p class="footer-motto">Never&nbsp;Not&nbsp;Learning</p>
+  </div>
+</footer>
 </html>

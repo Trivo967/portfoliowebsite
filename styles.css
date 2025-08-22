@@ -1,14 +1,19 @@
-/* Root variables for easy theming */
+/* ===== Color System ===== */
 :root {
-  --bg-color: #0d0d0d;
-  --fg-color: #ffffff;
-  --accent-color: #2fd0e6;
-  --secondary-accent: #ff3366;
+  --bg-color: #0E0E0E;               /* deep charcoal background */
+  --text-color: #FFFFFF;             /* primary text */
+  --text-secondary: #D1D1D1;         /* secondary text */
+  --accent-color: #FF005C;           /* neon magenta */
+  --secondary-accent: #8A2BE2;       /* electric purple */
   --transition: 0.3s ease;
   --max-width: 1200px;
+  --cursor-1x: url("media/cursor-64.png");
+  --cursor-2x: url("media/cursor-128.png");
+  --hot-x: 6;
+  --hot-y: 4;
 }
 
-/* Global resets */
+/* ===== Global resets ===== */
 * {
   box-sizing: border-box;
   margin: 0;
@@ -18,59 +23,102 @@
 html, body {
   font-family: 'Inter', sans-serif;
   background-color: var(--bg-color);
-  color: var(--fg-color);
+  color: var(--text-color);
   line-height: 1.6;
   scroll-behavior: smooth;
 }
 
-a {
-  color: var(--fg-color);
-  text-decoration: none;
+html, body {
+  font-family: 'Inter', sans-serif;
 }
 
-ul {
-  list-style: none;
+/* H1 uses Anton */
+h1 {
+  font-family: 'Anton', sans-serif;
+  font-weight: 400; /* Anton is a single weight */
 }
 
-img {
-  max-width: 100%;
-  display: block;
+/* H2/H3 + any “subtext” you want in serif use Libre Bodoni */
+h2, h3, .serif {
+  font-family: 'Libre Bodoni', serif;
+  font-optical-sizing: auto; /* enables optical sizes for variable fonts */
+  font-weight: 400;          /* adjust per section: 400–700 */
+  font-style: normal;        /* use italic where needed */
 }
 
-/* Navigation styles */
+
+a { color: var(--text-color); text-decoration: none; }
+.nav-links a { font-family: 'Anton'; font-weight: 200; font-size: 2rem; }
+ul { list-style: none; }
+img { max-width: 100%; display: block; }
+
+/* ===== Navigation (motion-ready) ===== */
 .nav {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 1rem 2rem;
+  padding: 2rem 10rem;
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   z-index: 1000;
-  background: rgba(13, 13, 13, 0.8);
+  background: transparent;
+  backdrop-filter: none;
+  transform: translateY(0);
+  opacity: 1;
+  transition:
+    transform 320ms cubic-bezier(.2,.7,.2,1),
+    opacity 220ms ease;
+  will-change: transform, opacity;
+  isolation: isolate;
+  
+}
+
+/* overlay for nav */
+.nav::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0;
+  background: rgba(0,0,0,0.18);
   backdrop-filter: blur(6px);
+  transition:
+    opacity 280ms ease,
+    backdrop-filter 280ms ease;
 }
 
-.logo {
-  font-size: 1.25rem;
-  font-weight: 700;
-  letter-spacing: 0.05em;
+/* overlay on motion states */
+.nav.nav--anim::before,
+.nav.nav--reveal::before {
+  opacity: 1;
 }
 
-.nav-links {
-  display: flex;
-  gap: 1.5rem;
-  align-items: center;
-}
-.nav-links a {
-  font-weight: 600;
-  transition: color var(--transition);
-}
-.nav-links a:hover {
-  color: var(--accent-color);
+/* hide state: slide up */
+.nav.nav--hidden {
+  transform: translateY(-110%);
+  opacity: 0.96;
 }
 
+/* color pulse animation */
+@keyframes revealPulse {
+  0%   { color: var(--text-color); }
+  40%  { color: var(--secondary-accent); }
+  100% { color: var(--text-color); }
+}
+
+/* apply pulse on reveal */
+.nav.nav--reveal .logo,
+.nav.nav--reveal .nav-links a {
+  animation: revealPulse 420ms ease;
+}
+
+/* logo & nav links base styles */
+.logo { font-size: 2rem; font-weight: 700; letter-spacing: 0.05em; }
+.nav-links { display: flex; gap: 3rem; align-items: center; }
+.nav-links a { font-weight: 800; transition: color var(--transition); }
+.nav-links a:hover { color: var(--accent-color); }
 .hamburger {
   display: none;
   flex-direction: column;
@@ -86,77 +134,104 @@ img {
   display: block;
   width: 100%;
   height: 2px;
-  background: var(--fg-color);
-  transition: transform var(--transition) ease;
+  background: var(--text-color);
 }
 
-/* Hero section */
+/* Reduced motion: keep header stable */
+@media (prefers-reduced-motion: reduce) {
+  .nav {
+    transition: none !important;
+    transform: none !important;
+    opacity: 1 !important;
+  }
+  .nav::before {
+    display: none !important;
+  }
+}
+
+/* ===== Hero Section ===== */
 .hero-section {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  height: 100vh;
   position: relative;
+  min-height: 100svh;
+  height: 100svh;
+  overflow: hidden;
+  display: grid;
+  place-items: center;
   text-align: center;
   padding-top: 5rem; /* account for fixed nav */
 }
-.hero-content {
-  flex: 1;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-.showreel-trigger {
-  position: relative;
-  width: 10rem;
-  height: 10rem;
-  border: 2px solid var(--fg-color);
-  border-radius: 50%;
-  background: rgba(255, 255, 255, 0.05);
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: transform var(--transition), background var(--transition);
-}
-.showreel-trigger:hover {
-  transform: scale(1.05);
-  background: rgba(255, 255, 255, 0.1);
-}
-.showreel-trigger .triangle {
-  width: 0;
-  height: 0;
-  border-left: 2rem solid var(--fg-color);
-  border-top: 1.3rem solid transparent;
-  border-bottom: 1.3rem solid transparent;
-  margin-left: 0.3rem;
+.hero--video .bg-video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  z-index: 0;
+  filter: brightness(0.78) contrast(1.05);
 }
 
+.video-card {
+  object-fit: cover;
+  width: 100%;
+  height: 100%;
+  border-radius: 0.5rem;
+}
+
+.hero-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background: linear-gradient(to top, rgba(0,0,0,0.55), rgba(0,0,0,0.15) 40%, rgba(0,0,0,0.35));
+}
+.hero-inner {
+  position: relative;
+  z-index: 2;
+  width: min(92%, 1100px);
+  padding: clamp(16px, 4vw, 48px);
+}
 .slogan {
-  font-size: clamp(2.5rem, 5vw, 4rem);
+  font-size: clamp(2.5rem, 6vw, 4.5rem);
   font-weight: 800;
   letter-spacing: 0.05em;
   text-transform: uppercase;
-  margin-bottom: 3rem;
+  margin-top: 60vh;
+}
+.scroll-cue {
+  display: inline-block;
+  margin-top: clamp(20px, 5vh, 60px);
+  font-size: clamp(22px, 4vw, 36px);
+  text-decoration: none;
+  color: var(--accent-color);
+  opacity: 0.9;
+  animation: bob 1.6s ease-in-out infinite;
+}
+.scroll-cue:hover { opacity: 1; }
+@keyframes bob {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(6px); }
 }
 
-/* Sections container */
+/* ===== Containers & Sections ===== */
 .container {
   width: 90%;
   max-width: var(--max-width);
   margin: 0 auto;
 }
-
-/* Introduction section */
 .intro-section {
   padding: 6rem 0 4rem;
+  background: #000000;
+}
+
+.problem-card h2{
+  font-size: 1.2rem;
+  padding-top: 1rem;
 }
 .intro-wrapper {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 2rem;
+  display: flex;
+  flex-direction: column;  /* stack vertically */
   align-items: center;
+  gap: 2rem;               /* space between text and videos */
 }
 .intro-text h2 {
   font-size: 2rem;
@@ -165,8 +240,10 @@ img {
 }
 .intro-text p {
   font-size: 1rem;
-  color: #cccccc;
+  color: var(--text-secondary);
 }
+
+/* Work grid */
 .video-grid {
   display: grid;
   gap: 1rem;
@@ -175,8 +252,8 @@ img {
 }
 .video-card {
   position: relative;
-  background: rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.1);
   border-radius: 0.5rem;
   cursor: pointer;
   overflow: hidden;
@@ -195,7 +272,7 @@ img {
   content: '';
   position: absolute;
   inset: 0;
-  background: linear-gradient(135deg, rgba(47, 208, 230, 0.2), rgba(255, 51, 102, 0.2));
+  background: linear-gradient(135deg, rgba(255,0,92,0.22), rgba(138,43,226,0.22));
   opacity: 0;
   transition: opacity var(--transition);
 }
@@ -205,7 +282,7 @@ img {
 .video-card .play-icon {
   width: 0;
   height: 0;
-  border-left: 1.2rem solid var(--fg-color);
+  border-left: 1.2rem solid var(--text-color);
   border-top: 0.8rem solid transparent;
   border-bottom: 0.8rem solid transparent;
   z-index: 1;
@@ -230,9 +307,9 @@ img {
 }
 .problem-card {
   padding: 2rem;
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255,255,255,0.1);
   border-radius: 0.5rem;
-  background: rgba(255, 255, 255, 0.03);
+  background: rgba(255,255,255,0.03);
 }
 .problem-card h3 {
   font-size: 1.3rem;
@@ -261,27 +338,35 @@ img {
   text-align: center;
 }
 .compare-visual {
+   aspect-ratio: 1 / 1;     /* force square box */
   width: 100%;
-  height: 240px;
+  overflow: hidden;
   border-radius: 0.5rem;
-  border: 2px dashed rgba(255, 255, 255, 0.2);
+  border: 2px dashed rgba(255,255,255,0.2);
   display: flex;
   align-items: center;
   justify-content: center;
-  position: relative;
-  overflow: hidden;
-  margin-bottom: 1rem;
 }
+
+
+.compare-visual img,
+.compare-visual video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;       /* fills the square, crops if necessary */
+  display: block;
+}
+
 .compare-visual .label {
   font-size: 1.1rem;
   font-weight: 700;
   color: var(--accent-color);
-  background: rgba(0, 0, 0, 0.6);
+  background: rgba(0,0,0,0.6);
   padding: 0.5rem 1rem;
   border-radius: 0.25rem;
 }
 .compare-text {
-  color: #bbbbbb;
+  color: var(--text-secondary);
   font-size: 0.95rem;
   max-width: 320px;
 }
@@ -290,27 +375,114 @@ img {
 .about-section {
   padding: 6rem 0;
 }
-.about-wrapper h2 {
-  font-size: 2rem;
-  font-weight: 700;
-  margin-bottom: 1rem;
-  text-align: center;
-}
-.about-wrapper p {
-  font-size: 1rem;
-  color: #cccccc;
-  max-width: 800px;
-  margin: 0 auto;
-  line-height: 1.7;
-  text-align: center;
+
+
+.about-wrapper {
+  display: flex;                 /* make it a flex container */
+  flex-direction: row;           /* left-to-right columns */
+  align-items: center;           /* vertical centering */
+  justify-content: space-between;
+  gap: clamp(1.5rem, 4vw, 3rem); /* breathing room between columns */
 }
 
+.about-text {
+  flex: 1 1 52ch;                /* grow, but keep a nice readable width */
+  max-width: 680px;
+}
+.about-text h1,
+.about-text h2 {
+  text-align: left;              /* override earlier center text */
+  margin: 0 0 1rem 0;
+}
+
+/* Right column — smaller, responsive image */
+.about-image {
+  flex: 0 0 clamp(220px, 28%, 340px); /* smaller on small screens, ~28% on wide */
+}
+.about-image img {
+  width: 100%;
+  height: auto;                  /* preserve proportions */
+  display: block;
+  border-radius: 0.5rem;         /* optional style */
+}
+
+/* Stack on mobile */
+@media (max-width: 768px) {
+  .about-wrapper {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+  .about-text { max-width: 36rem; }
+  .about-image { 
+    flex-basis: auto; 
+    max-width: 220px;            /* keep the portrait tastefully small on mobile */
+    margin-top: 1rem;
+  }
+  .about-text h1, .about-text p { text-align: center; }
+}
 /* CTA section */
 .cta-section {
   padding: 6rem 0 8rem;
   background: #111111;
   text-align: center;
   position: relative;
+}
+
+/* ===== Intro Video Marquee ===== */
+/* Marquee container hides overflow and positions the video track */
+.video-marquee {
+  overflow: hidden;
+  width: 100vw;
+  position: relative;
+  height: 30vh;
+}
+/* The track holds all the videos and scrolls horizontally */
+.video-marquee .video-track {
+  display: flex;
+  width: max-content;
+  animation: scrollVideos 100s linear infinite;
+ 
+}
+/* Each video card takes up 25% of the track width and maintains a 16/9 ratio */
+.video-marquee .video-card {
+  /* tweak this variable to make items smaller/larger */
+  --marquee-item-width: 3%;
+  flex: 0 0 var(--marquee-item-width);
+  aspect-ratio: 16 / 9;
+  object-fit: contain;  /* show the whole frame, no cropping */
+  background: #000;     /* letterbox bars blend with dark theme */
+}
+
+@keyframes scrollVideos {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-30%); }
+}
+
+/* Responsive adjustments for the marquee on small screens */
+@media (max-width: 768px) {
+  .video-marquee .video-card {
+    flex: 0 0 50%;
+  }
+  .video-marquee .video-track {
+    width: 400%;
+   
+  }
+}
+
+/* Intro headline hierarchy with 30% size difference */
+#intro h1 {
+  font-size: clamp(2rem, 4vw, 3.2rem);
+  line-height: 1.2;
+  text-align: center;
+  margin-bottom: 0.5rem;
+}
+#intro h2 {
+  font-size: clamp(1.5rem, 3vw, 2.5rem);
+  font-weight: 400;
+  line-height: 1.4;
+  text-align: center;
+  color: var(--text-secondary);
 }
 .cta-wrapper h2 {
   font-size: 2rem;
@@ -321,11 +493,14 @@ img {
   font-size: clamp(4rem, 10vw, 8rem);
   font-weight: 800;
   margin: 0;
-  color: var(--accent-color);
+  background: linear-gradient(90deg, var(--accent-color), var(--secondary-accent));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
   letter-spacing: 0.1em;
 }
 .cta-sub {
-  color: #bbbbbb;
+  color: var(--text-secondary);
   margin: 1rem auto 2rem;
   max-width: 640px;
   font-size: 1rem;
@@ -335,23 +510,20 @@ img {
   display: inline-block;
   padding: 0.75rem 2rem;
   background: var(--accent-color);
-  color: var(--bg-color);
+  color: var(--text-color);
   font-weight: 700;
   border-radius: 0.3rem;
-  transition: background var(--transition);
+  transition: background var(--transition), transform var(--transition);
 }
 .btn-primary:hover {
   background: var(--secondary-accent);
-  color: var(--bg-color);
+  transform: translateY(-1px);
 }
 
-/* Video modal styles */
+/* Video modal */
 .video-modal {
   position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
+  inset: 0;
   display: none;
   align-items: center;
   justify-content: center;
@@ -362,11 +534,8 @@ img {
 }
 .modal-overlay {
   position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0, 0, 0, 0.7);
+  inset: 0;
+  background: rgba(0,0,0,0.7);
   backdrop-filter: blur(4px);
 }
 .modal-content {
@@ -377,7 +546,7 @@ img {
   max-width: 90%;
   width: 800px;
   z-index: 10;
-  box-shadow: 0 0 20px rgba(0, 0, 0, 0.7);
+  box-shadow: 0 0 20px rgba(0,0,0,0.7);
 }
 .modal-content video {
   width: 100%;
@@ -393,7 +562,7 @@ img {
   border-radius: 50%;
   border: none;
   background: var(--secondary-accent);
-  color: var(--bg-color);
+  color: var(--text-color);
   font-size: 1.5rem;
   cursor: pointer;
   display: flex;
@@ -401,7 +570,7 @@ img {
   justify-content: center;
 }
 
-/* Reveal animation */
+/* Reveal animation (scroll triggered) */
 .reveal {
   opacity: 0;
   transform: translateY(40px);
@@ -412,7 +581,7 @@ img {
   transform: none;
 }
 
-/* Responsive behaviours */
+/* ===== Responsive adjustments ===== */
 @media (max-width: 768px) {
   .nav-links {
     position: fixed;
@@ -433,7 +602,7 @@ img {
     transform: translateX(0);
   }
   .hamburger {
-  display: flex;
+    display: flex;
   }
   .nav-links li {
     margin-bottom: 1.5rem;
@@ -451,4 +620,97 @@ img {
   .comparison {
     grid-template-columns: 1fr;
   }
+}
+
+/* ===== Native image cursor (fast, no lag) ===== */
+@media (pointer: fine) {
+  body,
+  a,
+  button,
+  [role="button"],
+  .video-card,
+  .hamburger,
+  .btn-primary {
+    cursor:
+      var(--cursor-2x) var(--hot-x) var(--hot-y),
+      var(--cursor-1x) var(--hot-x) var(--hot-y),
+      auto;
+  }
+  input,
+  textarea {
+    cursor: text;
+  }
+  .video-modal.open,
+  .modal-content,
+  .modal-content * {
+    cursor: auto;
+  }
+}
+
+/* ===== Footer ===== */
+.site-footer {
+  background: linear-gradient(90deg, var(--secondary-accent), var(--accent-color));
+  color: var(--text-color);
+}
+
+.footer-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: clamp(1rem, 4vw, 2rem);
+  padding: 2rem 10rem; /* match header padding */
+}
+
+.footer-logo {
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  white-space: nowrap;
+}
+
+.footer-social {
+  display: flex;
+  align-items: center;
+  gap: clamp(14px, 2.2vw, 22px);
+}
+
+.icon-link {
+  color: #fff;               /* monochrome */
+  opacity: 0.9;
+  transition: transform 180ms ease, opacity 180ms ease, filter 180ms ease;
+  display: inline-flex;
+}
+.icon-link:hover {
+  opacity: 1;
+  transform: translateY(-2px);
+  filter: drop-shadow(0 0 8px rgba(255,255,255,0.25));
+}
+.icon-link svg { display: block; width: 28px; height: 28px; }
+
+.footer-motto {
+  font-style: italic;
+  font-weight: 300;          /* lighter than header */
+  letter-spacing: 0.02em;
+  white-space: nowrap;
+  text-align: right;
+}
+
+/* Responsive stacking for mobile */
+@media (max-width: 768px) {
+  .footer-inner {
+    flex-direction: column;
+    text-align: center;
+  }
+  .footer-motto { text-align: center; }
+}
+
+/* Intro headline hierarchy */
+#intro h1 {
+  font-size: clamp(2rem, 4vw, 3.2rem);  /* bigger headline */
+  line-height: 1.2;
+}
+
+#intro h2 {
+  font-size: clamp(1.5rem, 3vw, 1.5rem);  /* 30% smaller */
+  font-weight: 400;  /* keep lighter for contrast */
+  line-height: 1.4;
 }
