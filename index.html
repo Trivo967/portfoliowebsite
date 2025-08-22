@@ -30,20 +30,22 @@
     </nav>
 
     <!-- Full-screen background video -->
-    <video
-      id="bgVideo"
-      class="bg-video"
-      autoplay
-      muted
-      loop
-      playsinline
-      preload="auto"
-      poster="media/reel-poster.jpg"
-    >
-      <!-- Optional: add a WebM source for better compression -->
-      <!-- <source src="media/video.webm" type="video/webm" /> -->
-      <source src="media/video.mp4" type="video/mp4" />
-    </video>
+    <!-- Full-screen background video -->
+<video
+  id="bgVideo"
+  class="bg-video"
+  autoplay
+  muted
+  loop
+  playsinline
+  preload="metadata"      <!-- change from auto → metadata for faster first paint -->
+  poster="media/reel-poster.jpg"
+>
+  <!-- Mobile first: your new smaller file -->
+  <source src="media/resize.mp4" type="video/mp4" media="(max-width: 768px)">
+  <!-- Default / larger screens -->
+  <source src="media/video.mp4" type="video/mp4">
+</video>
 
     <div class="hero-overlay"></div>
 
