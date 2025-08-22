@@ -4,11 +4,11 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>3D Event & Brand Visuals</title>
-  <meta name="description" content="High-impact 3D visuals for events, brands and experiences. Bring your ideas to life with immersive animations and story-driven motion." />
+  <meta name="description" content="High‑impact 3D visuals for events, brands and experiences. Bring your ideas to life with immersive animations and story‑driven motion." />
   <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;600;700;800&family=Libre+Bodoni:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;600;700;800&family=Libre+Bodoni:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&display=swap" rel="stylesheet">
   <!-- Stylesheet -->
   <link rel="stylesheet" href="styles.css" />
 </head>
@@ -16,7 +16,9 @@
   <!-- Navigation & hero wrapper -->
   <header class="hero-section hero--video" id="hero">
     <nav class="nav">
-      <a href="#" class="logo"><img src="media/logo_png_150_white.png" alt="Your Logo"></a>
+      <a href="#" class="logo">
+  <img src="media/logo_png_150_white.png" alt="Tri Logo">
+</a>
       <ul class="nav-links" id="primary-navigation">
         <li><a href="#intro">Work</a></li>
         <li><a href="#why">Why&nbsp;3D</a></li>
@@ -35,7 +37,7 @@
       muted
       loop
       playsinline
-      preload="metadata"  <!-- was auto; metadata = faster first paint, uses poster -->
+      preload="auto"
       poster="media/reel-poster.jpg"
     >
       <!-- Optional: add a WebM source for better compression -->
@@ -60,19 +62,19 @@
           <h1>Making Awesome 3D Visuals For Brands &amp; Events</h1>
           <h2>Fueled by Creativity, Obsessed with Curiosity</h2>
         </div>
+        <!-- Video gallery: static grid of videos with pop‑in animation -->
+        <div class="video-gallery">
+          <video class="gallery-video reveal" data-src="media/0001.mp4" muted playsinline loop preload="metadata"></video>
+          <video class="gallery-video reveal" data-src="media/05.mp4" muted playsinline loop preload="metadata"></video>
+          <video class="gallery-video reveal" data-src="media/meditation.mp4" muted playsinline loop preload="metadata"></video>
+          <video class="gallery-video reveal" data-src="media/Flag.mp4" muted playsinline loop preload="metadata"></video>
+          <video class="gallery-video reveal" data-src="media/business.mp4" muted playsinline loop preload="metadata"></video>
+          <video class="gallery-video reveal" data-src="media/yoga.mp4" muted playsinline loop preload="metadata"></video>
+          <video class="gallery-video reveal" data-src="media/sunglass.mp4" muted playsinline loop preload="metadata"></video>
+          <video class="gallery-video reveal" data-src="media/wine.mp4" muted playsinline loop preload="metadata"></video>
+        </div>
 
-        <!-- Continuous video marquee (lazy + mobile-friendly) -->
-        <div class="video-marquee">
-          <div class="video-track" id="marqueeTrack">
-            <!-- Replace src= with data-src so we can lazy load -->
-            <video class="video-card" data-src="media/0001.mp4" muted playsinline preload="metadata"></video>
-            <video class="video-card" data-src="media/05.mp4" muted playsinline preload="metadata"></video>
-            <video class="video-card" data-src="media/meditation.mp4" muted playsinline preload="metadata"></video>
-            <video class="video-card" data-src="media/Flag.mp4" muted playsinline preload="metadata"></video>
-            <video class="video-card" data-src="media/business.mp4" muted playsinline preload="metadata"></video>
-            <video class="video-card" data-src="media/yoga.mp4" muted playsinline preload="metadata"></video>
-            <video class="video-card" data-src="media/sunglass.mp4" muted playsinline preload="metadata"></video>
-          </div>
+          
         </div>
       </div>
     </section>
@@ -84,33 +86,51 @@
         <div class="problem-cards">
           <div class="problem-card">
             <h1>Difficult to show experience</h1>
-            <h2>Photos and Baisc Videos are saturated. </h2>
-            <h2> My 3D visuals help you stand out. </h2>
+            <h2>Photos and basic videos are boring. Everyone can do it.</h2>
+            <h2> My 3D visuals add the vibe to it through dynamic creativity</h2>
           </div>
           <div class="problem-card">
             <h1>Flat promotions don’t excite people</h1>
             <h2>Audiences scroll past generic event promos and ads and forget them within seconds.</h2>
-            <h2> I create 3D visuals that help you grab more attention.</h2>
+            <h2> I create 3D visuals that stand out, grabbing more attention.</h2>
           </div>
         </div>
-
         <!-- Comparison visuals -->
-        <div class="comparison">
-          <div class="compare-column">
-            <div class="compare-visual">
-              <video src="media/2D_persuation.mp4" autoplay loop muted playsinline preload="metadata"></video>
-            </div>
-            <p class="compare-text">Audiences scroll past generic event promos and forget them within seconds.</p>
-          </div>
-          <div class="compare-column">
-            <div class="compare-visual">
-              <video src="media/3D_persuation.mp4" autoplay loop muted playsinline preload="metadata"></video>
-            </div>
-            <p class="compare-text">I create dynamic, story-driven 3D animations that control every angle, lighting cue and movement — building hype and keeping people hooked until showtime.</p>
-          </div>
-        </div>
-      </div>
-    </section>
+     
+<div class="comparison">
+  <div class="compare-column">
+    <div class="compare-visual">
+      <video 
+        src="media/2D_persuation.mp4" 
+        autoplay 
+        loop 
+        muted 
+        playsinline
+        class="compare-video">
+      </video>
+    </div>
+    <p class="compare-text">
+      2D is fun, but common, this is kind of generic
+    </p>
+  </div>
+
+  <div class="compare-column">
+    <div class="compare-visual">
+      <video 
+        src="media/3D_persuation.mp4" 
+        autoplay 
+        loop 
+        muted 
+        playsinline
+        class="compare-video">
+      </video>
+    </div>
+    <p class="compare-text">
+      Ahhhhh, more motion, dynamic lighting, camera movement, just better! 
+    </p>
+  </div>
+</div>
+
 
     <!-- About Section -->
     <section id="about" class="about-section reveal">
@@ -119,9 +139,8 @@
           <h1>Hello world, my name is Tri.</h1>
           <h2>I’m a 3D designer based in Ho Chi Minh City. I help events, brands and experiences come to life through visuals that are impossible to ignore</h2>
         </div>
-
         <div class="about-image">
-          <img src="media/tri.png" alt="Tri's portrait" loading="lazy">
+          <img src="media/tri.png" alt="Tri's portrait">
         </div>
       </div>
     </section>
@@ -131,6 +150,8 @@
       <div class="container cta-wrapper">
           <h2>Make your event, brand or experience unforgettable.</h2>
           <h1 class="cta-3d">Let's tell stories together</h1>
+          
+          
       </div>
     </section>
   </main>
@@ -140,18 +161,20 @@
     <div class="modal-overlay"></div>
     <div class="modal-content" role="document">
       <button class="modal-close" aria-label="Close video">&times;</button>
-      <video id="modal-video" src="media/video.mp4" controls preload="metadata"></video>
+      <video id="modal-video" src="media/video.mp4" controls></video>
     </div>
   </div>
 
   <!-- Scripts -->
   <script src="script.js"></script>
+
+  
 </body>
 
 <footer class="site-footer">
   <div class="footer-inner container">
     <!-- Left: logo -->
-    <a href="/" class="footer-logo"><img src="media/logo_png_80_white.png" alt="Footer Logo" loading="lazy"></a>
+    <a href="/" class="footer-logo">  <img src="media/logo_png_80_white.png"</a>
 
     <!-- Center: social icons (monochrome) -->
     <nav class="footer-social" aria-label="Social links">
@@ -181,6 +204,8 @@
           <path d="M3 7l9 6 9-6"></path>
         </svg>
       </a>
+
+      
     </nav>
 
     <!-- Right: motto -->
